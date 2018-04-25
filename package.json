@@ -15,7 +15,9 @@
     "rebuild": "run/rebuild",
     "root": "docker exec -i -t splice-server bash",
     "bash": "docker exec -i -t -u $USER splice-server bash",
-    "bundle": "run/bundle"
+    "bundle": "run/bundle",
+    "kill-confilcts": "docker rm -f $(docker ps -a -q)"
+"
   },
   "repository": {
     "type": "git",

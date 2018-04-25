@@ -12,8 +12,8 @@
     "terminate": "docker-compose down&&docker-compose rm -f",
     "build": "docker-compose build --build-arg USER=$USER --build-arg GROUP=$(id -gn)",
     "rebuild": "run/rebuild",
-    "bash": "docker exec -i -t splice-server bash",
-    "term": "docker exec -i -t -u $USER splice-server bash",
+    "root": "docker exec -i -t splice-server bash",
+    "bash": "docker exec -i -t -u $USER splice-server bash",
     "bundle": "run/bundle"
   },
   "repository": {

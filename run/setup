@@ -1,0 +1,26 @@
+#!/bin/bash
+cd $(dirname $0)/..
+
+project=$1
+file=.env
+tmp=.env.tmp
+
+set -f; IFS=$'\n'
+opts=( $(cat "$file") )
+
+i=0
+options=()
+for option in "${opts[@]}"
+do
+    IFS='=' read -r key value <<< "$option"
+    if [ $key == "PROJECT" ] && [ ! -z "$project" ]; then
+        value=$project
+    fi
+    result=$(dialog --clear --inputbox "$key" 8 40  --output-fd 1 "$value")
+    if [ ! -z "$result" ]; then
+        value=$result
+    fi
+    echo "$key=$value" >> ${tmp}
+done
+rm .env
+mv .env.tmp .env

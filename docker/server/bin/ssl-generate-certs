@@ -1,0 +1,58 @@
+#!/bin/bash
+#name=${1:-localhost}
+#openssl req -x509 -out $name.crt -keyout $name.key \
+#  -newkey rsa:2048 -nodes -sha256 \
+#  -subj "/CN=$name" -extensions EXT -config <( \
+#   printf "[dn]\nCN=$name\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:$name\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+DOMAIN=${1:-localhost}
+
+if [ -z "$DOMAIN" ]; then
+  echo -n 'Enter root domain (no www): '
+  read input_d
+  DOMAIN=$input_d
+fi
+
+[ -d certs ] || mkdir certs
+
+# Easiest to generate conf file for each
+# certificate creation process
+OpenSSLConf="$DOMAIN"-openssl.cnf
+
+cat >"$OpenSSLConf" <<EOL
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[ req_distinguished_name ]
+countryName                 = Country
+countryName_default         = ZA
+stateOrProvinceName         = State
+stateOrProvinceName_default = Gauteng
+localityName                = City
+localityName_default        = Pretoria
+commonName                  = Common Name
+commonName_default          = *.$DOMAIN
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = $DOMAIN
+DNS.2 = *.$DOMAIN
+EOL
+
+# Create Private RSA Key
+#openssl genrsa -out "$DOMAIN".key 2048
+
+# Create Certifcate Signing Request
+#openssl req -new -key "$DOMAIN".key -out "$DOMAIN".csr -config "$OpenSSLConf"
+openssl req -nodes -newkey rsa:2048 -keyout "$DOMAIN".key -out "$DOMAIN".csr -subj "/C=ZA/ST=Gauteng/L=Pretoria/O=Private/OU=Development/CN=$DOMAIN"
+
+# Create Certifcate
+openssl x509 -req -days 365 -in "$DOMAIN".csr \
+-signkey "$DOMAIN".key -out "$DOMAIN".crt \
+-extensions v3_req \
+-extfile "$OpenSSLConf"
+
+# Nix the configfile
+rm -- "$OpenSSLConf"

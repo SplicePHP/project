@@ -1,0 +1,6 @@
+#!/bin/bash
+npm start
+while read line; do export "$line";
+done < .env
+
+google-chrome "https://localhost:$PORT_HTTPS"

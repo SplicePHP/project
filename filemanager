@@ -1,0 +1,5 @@
+#!/bin/bash
+npm start
+while read line; do export "$line";
+done < .env
+chromium-browser --app=https://localhost:$PORT_HTTPS/filemanager.php --disable-xss-auditor --window-size=800,600

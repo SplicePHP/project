@@ -1,0 +1,5 @@
+#!/bin/bash
+npm start
+while read line; do export "$line";
+done < .env
+chromium-browser --app=http://localhost:$PORT_PHPMYADMIN --window-size=800,600

@@ -1,40 +1,40 @@
-version: "3"
+version: "3.6"
 
 services:
   server:
     image: server
     build:
-      context: ./contain/server
+      context: ./docker/server
       args:
-      - USER=splice
-      - GROUP=splice
-      - APACHE_RUN_USER=splice
-      - APACHE_RUN_GROUP=splice
+        - USER=${USER-splice}
+        - GROUP=${GROUP-splice}
+        - APACHE_RUN_USER=${USER-splice}
+        - APACHE_RUN_GROUP=${GROUP-splice}
+    environment:
+      - USER=${USER-splice}
+      - GROUP=${GROUP-splice}
+      - APACHE_RUN_USER=${USER-splice}
+      - APACHE_RUN_GROUP=${GROUP-splice}
     container_name: 'splice-server'
     restart: 'always'
     ports:
-      - "50080:80"
-      - "50443:443"
+      - ${PORT_HTTP}:80
+      - ${PORT_HTTPS}:443
     links:
       - mysql
     volumes:
-      - ${DOCUMENT_ROOT-/home/splice/www/docker}:/var/www/html
+      - ${DOCUMENT_ROOT-./www}:/var/www/html
       - ${PHP_INI-./config/php/php.ini}:/usr/local/etc/php/php.ini
       - ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
       - ${BIN_DIR-./bin}:/home/${USER}/bin
-    environment:
-      - APACHE_RUN_USER=splice
-      - APACHE_RUN_GROUP=splice
-      - USER=splice
-      - GROUP=splice
   mysql:
     image: mysql
-    build: ./contain/mysql
+    build: ./docker/mysql
     container_name: 'splice-mysql'
     restart: 'always'
     ports:
-      - "53306:3306"
+      - ${PORT_MYSQL}:3306
     volumes:
       - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
       - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
@@ -52,11 +52,11 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
-      - '58080:80'
+      - ${PORT_PHPMYADMIN}:80
     volumes:
       - /sessions
   redis:
     container_name: 'splice-redis'
     image: redis:latest
     ports:
-      - "56379:6379"
+      - ${PORT_REDIS}:6379

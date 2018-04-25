@@ -1,0 +1,29 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "Docker Server Skeleton This is very much a work in progress and personal testing environment. Do not expect any stability from this repo.",
+  "main": "index.js",
+  "scripts": {
+    "start": "docker-compose up -d",
+    "start-dev": "docker-compose up",
+    "start-force": "docker-compose rm -f&&docker-compose up -d",
+    "stop": "docker-compose down",
+    "restart": "npm run stop&&npm run build&&npm run start",
+    "terminate": "docker-compose down&&docker-compose rm -f",
+    "build": "docker-compose build --build-arg USER=$USER --build-arg GROUP=$(id -gn)",
+    "rebuild": "run/rebuild",
+    "bash": "docker exec -i -t splice-server bash",
+    "term": "docker exec -i -t -u $USER splice-server bash",
+    "bundle": "run/bundle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SplicePHP/project.git"
+  },
+  "author": "Dieter Gribnitz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SplicePHP/project/issues"
+  },
+  "homepage": "https://github.com/SplicePHP/project#readme"
+}

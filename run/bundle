@@ -1,0 +1,15 @@
+#!/bin/bash
+cd $(dirname $0)/..
+
+tag=$(date +"%Y-%m-%d_%H-%M-%S")
+name=${1:-bundle}
+ns=${name}_$tag
+path=tmp/$ns
+
+for img in $(docker-compose config | awk '{if ($1 == "image:") print $2;}'); do
+  images="$images $img"
+done
+
+docker save -o $path/services.img $images
+
+

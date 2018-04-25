@@ -13,8 +13,8 @@
     "terminate": "docker-compose down&&docker-compose rm -f",
     "build": "docker-compose build --build-arg USER=$USER --build-arg GROUP=$(id -gn)",
     "rebuild": "run/rebuild",
-    "root": "docker exec -i -t splice-server bash",
-    "bash": "docker exec -i -t -u $USER splice-server bash",
+    "root": "run/root",
+    "bash": "run/bash",
     "bundle": "run/bundle",
     "kill-confilcts": "run/nuke"
   },

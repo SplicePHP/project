@@ -2,4 +2,4 @@
 npm start
 while read line; do export "$line";
 done < .env
-chromium-browser --disable-xss-auditor --app=https://localhost:$PORT_HTTPS/info.php
+chromium-browser --disable-xss-auditor --app=https://tools:$PORT_HTTPS/info.php

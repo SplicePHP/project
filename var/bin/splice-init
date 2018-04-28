@@ -1,0 +1,12 @@
+#!/bin/bash
+#cd $(dirname $0)/..
+cd /var/www/
+composer create-project --prefer-dist cakephp/app html
+cd html
+composer config "minimum-stability" dev
+composer config repositories.local composer "https://splicephp.com/repositories/"
+composer config secure-http false
+composer require splicephp/core
+bin/cake plugin load Splice/Core -r -b
+bin/cake Splice/Core.project install
+

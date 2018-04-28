@@ -1,0 +1,7 @@
+#!/bin/bash
+project=${1:-$(dialog --clear --inputbox "Project name" 8 40  --output-fd 1 "")}
+git clone https://github.com/SplicePHP/project $project
+cd $project
+npm install
+npm run setup $project
+

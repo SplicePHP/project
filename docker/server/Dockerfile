@@ -22,7 +22,7 @@ RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> /home/$USER/.bashrc
 
 RUN a2enmod ssl
 RUN cd /etc/apache2/ssl && ssl-generate-certs
-RUN cd /etc/apache2/ssl && ssl-generate-certs tools
+RUN cd /etc/apache2/ssl && ssl-generate-certs utility
 
 #ARG FOO
 #RUN echo $FOO

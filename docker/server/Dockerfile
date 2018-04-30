@@ -15,8 +15,9 @@ ENV GROUP=${GROUP}
 RUN adduser --disabled-password --gecos '' $USER
 
 #DEVMODE
+RUN chown $USER:$GROUP /home/$USER
 RUN mkdir /home/$USER/bin
-COPY ./bin /home/$USER/bin
+COPY ./var/bin /home/$USER/bin
 RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> ~/.bashrc
 RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> /home/$USER/.bashrc
 

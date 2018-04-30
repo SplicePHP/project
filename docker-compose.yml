@@ -28,7 +28,9 @@ services:
       - ${PHP_INI-./config/php/php.ini}:/usr/local/etc/php/php.ini
       - ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
-      - ${BIN_DIR-./bin}:/home/${USER}/bin
+      - ${HOME_DIR-./var/home}:/home/$USER
+      - ${BIN_DIR-./var/bin}:/home/${USER}/bin
+
   mysql:
     image: mysql
     build: ./docker/mysql

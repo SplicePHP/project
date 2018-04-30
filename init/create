@@ -1,7 +1,36 @@
 #!/bin/bash
+master_branch=${2:-$(dialog --clear --inputbox "Master Branch" 8 40  --output-fd 1 "master")}
+client_branch=${3:-$(dialog --clear --inputbox "Client Branch" 8 40  --output-fd 1 "${master_branch}")}
 project=${1:-$(dialog --clear --inputbox "Project name" 8 40  --output-fd 1 "")}
-git clone https://github.com/SplicePHP/project $project
-cd $project
+
+if git ls-remote https://github.com/SplicePHP/project.git | grep -sw "${master_branch}" 2>&1>/dev/null;
+then 
+    git clone -b ${master_branch} https://github.com/SplicePHP/project $project
+    cd $project
+else
+    git clone https://github.com/SplicePHP/project $project
+    cd $project
+    git checkout -b ${client_branch}
+fi
+
 npm install
 npm run setup $project
+npm start
+run/bash
+
+
+
+
+
+
+
+#while read line; do export "$line";
+#done < .env
+
+#SERVERID=$(sudo docker ps -aqf "name=${PROJECT}-server")
+#docker exec -it $SERVERID ls -la
+#splice-init
+
+#docker exec -it $(sudo docker ps -aqf "name=master-server") ls -la
+#sudo docker exec -it $(sudo docker ps -aqf "name=master-server") script /dev/null -c "ls"
 

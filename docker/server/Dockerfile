@@ -24,5 +24,7 @@ RUN a2enmod ssl
 RUN cd /etc/apache2/ssl && ssl-generate-certs
 RUN cd /etc/apache2/ssl && ssl-generate-certs utility
 
+RUN chown $USER:$GROUP /var/www/html
+
 #ARG FOO
 #RUN echo $FOO

@@ -1,5 +1,5 @@
 /nbproject/private/
-/logs/apache2/access.log
-/logs/apache2/error.log
-/logs/apache2/other_vhosts_access.log
-/data/
+/var/logs/
+/var/data/
+/var/tmp/
+

@@ -29,7 +29,6 @@ services:
       - ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
       - ${HOME_DIR-./var/home}:/home/$USER
-      - ${BIN_DIR-./var/bin}:/home/${USER}/bin
 
   mysql:
     image: mysql

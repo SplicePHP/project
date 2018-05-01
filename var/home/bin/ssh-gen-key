@@ -1,0 +1,19 @@
+#!/bin/bash
+email=""
+while getopts e:h opt; do
+  case $opt in
+    e) email=${OPTARG};;
+    h)
+        echo "Usage: cmd [-e email] path/to/keyname"
+        exit
+        ;;
+  esac
+done
+shift $((OPTIND -1))
+path=$1
+if [ ! "$path" == "" ]
+then
+    ssh-keygen -t rsa -b 4096 -C "$email" -N '' -f "$path"
+else
+    ssh-keygen -t rsa -b 4096 -C "$email" -N ''
+fi

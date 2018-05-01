@@ -1,0 +1,8 @@
+#!/bin/bash
+ssh-gen-key
+echo -e "\n---------------------------------------------------------\n"\
+"Copy this key and add to: https://gitlab.com/profile/keys\n"\
+"---------------------------------------------------------\n"
+ssh-print-key
+
+

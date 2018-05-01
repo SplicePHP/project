@@ -1,0 +1,3 @@
+#!/bin/bash
+RSA=$(cat ~/.ssh/id_rsa.pub)
+echo $RSA

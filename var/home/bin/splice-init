@@ -2,12 +2,13 @@
 #cd $(dirname $0)/..
 cd /var/www/
 rm /var/www/html/.gitkeep
-composer create-project --prefer-dist cakephp/app html
+composer create-project --prefer-dist -n cakephp/app html
 cd html
 composer config "minimum-stability" dev
 composer config repositories.local composer "https://splicephp.com/repositories/"
 composer config secure-http false
 composer require splicephp/core
-bin/cake plugin load Splice/Core -r -b
+#bin/cake plugin load Splice/Core -r -b
+echo "Plugin::load('Splice/Core', ['bootstrap' => true, 'routes' => true]);" >> config/bootstrap.php
 bin/cake Splice/Core.project install
 

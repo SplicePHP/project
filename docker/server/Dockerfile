@@ -15,9 +15,13 @@ ENV GROUP=${GROUP}
 RUN adduser --disabled-password --gecos '' $USER
 
 #DEVMODE
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+RUN sudo apt-get update && sudo apt-get install yarn
+
 RUN chown $USER:$GROUP /home/$USER
 RUN mkdir /home/$USER/bin
-COPY ./var/bin /home/$USER/bin
+#COPY ./var/bin /home/$USER/bin
 RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> ~/.bashrc
 RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> /home/$USER/.bashrc
 

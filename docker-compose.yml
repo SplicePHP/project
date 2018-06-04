@@ -15,6 +15,7 @@ services:
       - GROUP=${GROUP-splice}
       - APACHE_RUN_USER=${USER-splice}
       - APACHE_RUN_GROUP=${GROUP-splice}
+      - XDEBUG_CONFIG=remote_host=192.168.8.101
     container_name: ${PROJECT}-server
     restart: 'always'
     ports:
@@ -29,6 +30,7 @@ services:
       - ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
       - ${HOME_DIR-./var/home}:/home/$USER
+      - ./config/locale:/etc/default/locale
 
   mysql:
     image: mysql

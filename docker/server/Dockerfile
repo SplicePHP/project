@@ -26,6 +26,7 @@ RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> ~/.bashrc
 RUN echo "PATH=\"/home/$USER/bin:\$PATH\"" >> /home/$USER/.bashrc
 
 RUN a2enmod ssl
+RUN a2enmod http2
 RUN cd /etc/apache2/ssl && ssl-generate-certs
 RUN cd /etc/apache2/ssl && ssl-generate-certs utility
 
@@ -42,6 +43,9 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
+RUN mkdir /etc/letsencrypt
+RUN mkdir /etc/letsencrypt/live
+RUN apachectl restart
 #RUN apt-get update && apt-get install -y --no-install-recommends \
 #    locales \
 # && sed -i 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen \

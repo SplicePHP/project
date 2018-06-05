@@ -21,6 +21,7 @@ services:
     ports:
       - ${PORT_HTTP}:80
       - ${PORT_HTTPS}:443
+      - ${PORT_XTERM}:8443
     links:
       - mysql
     volumes:
@@ -31,6 +32,8 @@ services:
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
       - ${HOME_DIR-./var/home}:/home/$USER
       - ./config/locale:/etc/default/locale
+      - /docker-volumes/etc/letsencrypt/live/misa.splicephp.com/fullchain.pem:/etc/letsencrypt/live/misa.splicephp.com/fullchain.pem
+      - /docker-volumes/etc/letsencrypt/live/misa.splicephp.com/privkey.pem:/etc/letsencrypt/live/misa.splicephp.com/privkey.pem
 
   mysql:
     image: mysql

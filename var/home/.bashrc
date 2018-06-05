@@ -115,4 +115,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-PATH="/home/splice/bin:$PATH"
+PATH="/home/ubuntu/bin:$PATH"

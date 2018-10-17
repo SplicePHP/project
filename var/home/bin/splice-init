@@ -19,7 +19,7 @@ mv * .[^.]* ..
 cd ..
 rm -r project
 composer config "minimum-stability" dev
-composer config repositories.local composer "https://splicephp.gitlab.com/pkg/"
+composer config repositories.local composer "https://splicephp.gitlab.io/pkg/"
 composer config secure-http false
 composer require splicephp/core
 #bin/cake plugin load Splice/Core -r -b

@@ -15,5 +15,5 @@ if [ ! "$path" == "" ]
 then
     ssh-keygen -t rsa -b 4096 -C "$email" -N '' -f "$path"
 else
-    ssh-keygen -t rsa -b 4096 -C "$email" -N ''
+    ssh-keygen -t rsa -b 4096 -C "$email" -N '' -f "/home/$USER/.ssh/id_rsa"
 fi

@@ -15,7 +15,7 @@ services:
       - GROUP=${GROUP-splice}
       - APACHE_RUN_USER=${USER-splice}
       - APACHE_RUN_GROUP=${GROUP-splice}
-      - XDEBUG_CONFIG=remote_host=192.168.8.101
+      - XDEBUG_CONFIG=remote_host=${LANIP}
     container_name: ${PROJECT}-server
     restart: 'always'
     ports:
@@ -32,8 +32,8 @@ services:
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
       - ${HOME_DIR-./var/home}:/home/$USER
       - ./config/locale:/etc/default/locale
-      - /docker-volumes/etc/letsencrypt/live/misa.splicephp.com/fullchain.pem:/etc/letsencrypt/live/misa.splicephp.com/fullchain.pem
-      - /docker-volumes/etc/letsencrypt/live/misa.splicephp.com/privkey.pem:/etc/letsencrypt/live/misa.splicephp.com/privkey.pem
+      - ./var/ssl/etc/letsencrypt/live/${DOMAIN}/fullchain.pem:/etc/letsencrypt/live/${DOMAIN}/fullchain.pem
+      - ./var/ssl/etc/letsencrypt/live/${DOMAIN}/privkey.pem:/etc/letsencrypt/live/${DOMAIN}/privkey.pem
 
   mysql:
     image: mysql
@@ -49,7 +49,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: splice
       MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_PASSWORD: roots
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: ${PROJECT}-phpmyadmin

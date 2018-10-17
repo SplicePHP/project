@@ -16,6 +16,7 @@ services:
       - APACHE_RUN_USER=${USER-splice}
       - APACHE_RUN_GROUP=${GROUP-splice}
       - XDEBUG_CONFIG=remote_host=${LANIP}
+      - EMAIL=${EMAIL}
     container_name: ${PROJECT}-server
     restart: 'always'
     ports:

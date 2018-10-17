@@ -1,5 +1,5 @@
 #!/bin/bash
-email=""
+email=${EMAIL-""}
 while getopts e:h opt; do
   case $opt in
     e) email=${OPTARG};;

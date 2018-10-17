@@ -407,6 +407,8 @@ RUN apachectl restart
 
 RUN apt-get -y install xz-utils
 
+RUN apt-get -y install dialog
+
 RUN rm -rf /var/lib/apt/lists/*;
 
 RUN git config --global user.email "dietergribnitz@gmail.com"

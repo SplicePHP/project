@@ -1,5 +1,17 @@
 #!/bin/bash
 #cd $(dirname $0)/..
+if [ ! -f "/home/${USER}/.ssh/id_rsa" ]; then
+    ssh-gen-key
+fi
+SSH_KEY=`ssh-print-key`
+
+dialog --title "Add as gitlab ssh user" --msgbox "Add the following ssh key to \
+gitlab: \nCntrl+'click' to open in browser: \n\nhttps://gitlab.com/profile/keys\
+" 10 50
+clear
+echo $SSH_KEY
+
+read -p "Press enter to continue"
 cd /var/www/html
 composer create-project --prefer-dist -n cakephp/app project
 cd project

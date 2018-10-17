@@ -5,7 +5,9 @@ Do not expect any stability from this repo.
 
 ```
 
-wget https://github.com/SplicePHP/project/blob/master/init/create
+wget https://raw.githubusercontent.com/SplicePHP/project/master/init/create
+sudo chmod +x ./create
 ./create
+
 
 ```
